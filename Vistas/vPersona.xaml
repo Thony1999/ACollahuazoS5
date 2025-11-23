@@ -3,87 +3,73 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ACollahuazoS5.Vistas.vPersona"
              Title="vPersona">
-    <VerticalStackLayout 
-            Spacing="20"
-            Padding="20">
-        
-        <Label 
-            Text="Vista Persona"
-            VerticalOptions="Center"
-            FontSize="18"
-            HorizontalOptions="Center" />
 
-        <Entry x:Name="txtPersona"
-               Placeholder="Ingrese una persona"/>
+    <VerticalStackLayout Padding="20" Spacing="10">
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+        <Entry x:Name="txtPersona" Placeholder="Nombre"/>
+        <Entry x:Name="txtApellido" Placeholder="Apellido"/>
+        <Entry x:Name="txtEdad" Placeholder="Edad" Keyboard="Numeric"/>
+
+        <Label x:Name="lblMensaje" TextColor="Yellow"/>
+
+        <HorizontalStackLayout Spacing="10">
+            <Button Text="Agregar" Clicked="BtnAgregar_Clicked"/>
+            <Button Text="Listar" Clicked="btnListar_Clicked"/>
+        </HorizontalStackLayout>
+
+        <!-- Tabla encabezado-->
+        <Grid BackgroundColor="White" Padding="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnAgregar"
-                    Text="Agregar"
-                    Clicked="BtnAgregar_Clicked"
-                     Grid.Row="0"
-                    Grid.Column="0"
-                   ></Button>
-            <Label x:Name="lblMensaje"
-                   Grid.Row="1"
-                   Grid.Column="0"></Label>
-            <Button x:Name="btnListar"
-                    Text="Listar Persona"
-                    Clicked="btnListar_Clicked"
-                    Grid.Row="2"
-                    Grid.Column="0"></Button>
-            <CollectionView x:Name="listaPersona"
-                            Grid.Row="3"
-                            Grid.Column="0"
-                            SelectionMode="Single">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="5" ColumnSpacing="10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
 
-
-                            <Label Text="{Binding Id}" 
-                                   Grid.Column="0"
-                                   VerticalOptions="Center"
-                                   HorizontalOptions="Center"/>
-
-                            <Label Text="{Binding Name}"
-                                   Grid.Column="1"
-                                   VerticalOptions="Center"/>
-
-                            <Button Text="Actualizar"
-                                    FontSize="14"
-                                    Grid.Column="2"
-                                    BackgroundColor="Aqua" 
-                                    CornerRadius="10"
-                                    Clicked="Button_Clicked"
-                                    CommandParameter="{Binding }"/>
-
-                            <Button Text="Eliminar"
-                                    FontSize="14"
-                                    Grid.Column="3"
-                                    BackgroundColor="Red"
-                                    CornerRadius="10"
-                                    Clicked="Button_Clicked_1"
-                                    CommandParameter="{Binding }"/>
-
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <Label Text="ID" Grid.Column="0" TextColor="Black"/>
+            <Label Text="Nombre" Grid.Column="1" TextColor="Black"/>
+            <Label Text="Apellido" Grid.Column="2" TextColor="Black"/>
+            <Label Text="Edad" Grid.Column="3" TextColor="Black"/>
+            <Label Text="Actualizar" Grid.Column="4" TextColor="Black"/>
+            <Label Text="Eliminar" Grid.Column="5" TextColor="Black"/>
         </Grid>
+
+        <!-- Listar Tabla Diseño-->
+        <CollectionView x:Name="listaPersona">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="{Binding Id}" Grid.Column="0" TextColor="White"/>
+                        <Label Text="{Binding Nombre}" Grid.Column="1"/>
+                        <Label Text="{Binding Apellido}" Grid.Column="2"/>
+                        <Label Text="{Binding Edad}" Grid.Column="3"/>
+
+                        <Button Text="Editar"
+                                Grid.Column="4"
+                                Clicked="Button_Clicked"
+                                CommandParameter="{Binding}" />
+
+                        <Button Text="Eliminar"
+                                Grid.Column="5"
+                                BackgroundColor="Red"
+                                TextColor="White"
+                                Clicked="Button_Clicked_1"
+                                CommandParameter="{Binding}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
     </VerticalStackLayout>
 </ContentPage>

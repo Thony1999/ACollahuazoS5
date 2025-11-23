@@ -19,48 +19,52 @@ namespace ACollahuazoS5.Clases
         {
             if (conn is not null)
                 return;
-            conn = new(ruta);
+
+            conn = new SQLiteConnection(ruta);
             conn.CreateTable<Persona>();
         }
 
         public PersonRepository(string path)
         {
-            ruta = path; //asigno un valor
+            ruta = path;
         }
 
-        public void addNewPerson(string nombre)
+        public void addNewPerson(string nombre, string apellido, string edad)
         {
-            int result = 0;
             try
             {
-                init();
-                if (string.IsNullOrEmpty(nombre))
-                    throw new Exception("Nombre requerimiento");
-                Persona persona = new() { Name = nombre };
-                result = conn.Insert(persona);
-                mensaje = string.Format("Dato Ingresado");
+                init();  // ← IMPORTANTE
+
+                var persona = new Persona
+                {
+                    Nombre = nombre,
+                    Apellido = apellido,
+                    Edad = edad
+                };
+
+                conn.Insert(persona);  // ← CORREGIDO
+                mensaje = "Persona agregada correctamente";
             }
             catch (Exception ex)
             {
-                mensaje = string.Format("Error " + ex.Message);
-                throw;
+                mensaje = "Error: " + ex.Message;
             }
         }
 
-        public List<Persona> GetAllPeople() 
+        public List<Persona> GetAllPeople()
         {
             try
             {
-                init();// lista todas las personas
+                init();
                 return conn.Table<Persona>().ToList();
             }
             catch (Exception ex)
             {
-
-                mensaje = string.Format("Error " + ex.Message);
+                mensaje = "Error " + ex.Message;
+                return new List<Persona>();
             }
-            return new List<Persona>(); // lista con los datos
         }
+
         public void DeletePerson(int id)
         {
             try
@@ -73,13 +77,14 @@ namespace ACollahuazoS5.Clases
                     return;
                 }
                 conn.Delete(persona);
-                mensaje = $"Persona eliminada: {persona.Name}";
+                mensaje = $"Persona eliminada: {persona.Nombre}";
             }
             catch (Exception ex)
             {
                 mensaje = $"Error al eliminar: {ex.Message}";
             }
         }
+
         public void UpdatePerson(int id, string nuevoNombre)
         {
             try
@@ -91,7 +96,7 @@ namespace ACollahuazoS5.Clases
                     mensaje = "Persona no encontrada";
                     return;
                 }
-                persona.Name = nuevoNombre;
+                persona.Nombre = nuevoNombre;
                 conn.Update(persona);
                 mensaje = $"Persona actualizada: {nuevoNombre}";
             }

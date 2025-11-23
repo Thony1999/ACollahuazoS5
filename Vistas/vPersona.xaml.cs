@@ -11,9 +11,11 @@ public partial class vPersona : ContentPage
 
     private async void BtnAgregar_Clicked(object sender, EventArgs e)
     {
-		lblMensaje.Text = "";
-		App.PersonRepo.addNewPerson(txtPersona.Text);
-		lblMensaje.Text = App.PersonRepo.mensaje;
+        lblMensaje.Text = "";
+        App.PersonRepo.addNewPerson(txtPersona.Text, txtApellido.Text, txtEdad.Text);
+        lblMensaje.Text = App.PersonRepo.mensaje;
+
+        listaPersona.ItemsSource = App.PersonRepo.GetAllPeople();
     }
 
     private async void btnListar_Clicked(object sender, EventArgs e)
@@ -23,6 +25,7 @@ public partial class vPersona : ContentPage
 		listaPersona.ItemsSource = person;
     }
 
+    //actualizar
     private async void Button_Clicked(object sender, EventArgs e)
     {
         var button = sender as Button;
@@ -32,12 +35,13 @@ public partial class vPersona : ContentPage
         {
             string nuevoNombre = await DisplayPromptAsync(
                 "Editar Persona",
-                $"Ingrese nuevo nombre para {persona.Name}",
-                initialValue: persona.Name);
+                $"Ingrese nuevo nombre para {persona.Nombre}",
+                initialValue: persona.Nombre);
+
 
             if (!string.IsNullOrEmpty(nuevoNombre))
             {
-                // ✅ Método sincrónico
+                // Método sincrónico
                 App.PersonRepo.UpdatePerson(persona.Id, nuevoNombre);
                 lblMensaje.Text = App.PersonRepo.mensaje;
                 listaPersona.ItemsSource = App.PersonRepo.GetAllPeople();
@@ -54,7 +58,7 @@ public partial class vPersona : ContentPage
         if (persona != null)
         {
             bool confirmar = await DisplayAlert("Confirmar eliminación",
-                $"¿Deseas eliminar a {persona.Name}?",
+                $"¿Deseas eliminar a {persona.Nombre}?",
                 "Sí", "No");
 
             if (confirmar)

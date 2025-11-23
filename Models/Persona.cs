@@ -14,6 +14,11 @@ namespace ACollahuazoS5.Models
         public int Id { get; set; }
 
         [MaxLength(50)]
-        public string Name { get; set; }
+        public string Nombre { get; set; }
+
+        [MaxLength(50)]
+        public string Apellido { get; set; }
+
+        public string Edad { get; set; }
     }
 }
