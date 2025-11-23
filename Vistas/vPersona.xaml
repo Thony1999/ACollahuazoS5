@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ACollahuazoS5.Vistas.vPersona"
+             Title="vPersona">
+    <VerticalStackLayout 
+            Spacing="20"
+            Padding="20">
+        
+        <Label 
+            Text="Vista Persona"
+            VerticalOptions="Center"
+            FontSize="18"
+            HorizontalOptions="Center" />
+
+        <Entry x:Name="txtPersona"
+               Placeholder="Ingrese una persona"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnAgregar"
+                    Text="Agregar"
+                    Clicked="BtnAgregar_Clicked"
+                     Grid.Row="0"
+                    Grid.Column="0"
+                   ></Button>
+            <Label x:Name="lblMensaje"
+                   Grid.Row="1"
+                   Grid.Column="0"></Label>
+            <Button x:Name="btnListar"
+                    Text="Listar Persona"
+                    Clicked="btnListar_Clicked"
+                    Grid.Row="2"
+                    Grid.Column="0"></Button>
+            <CollectionView x:Name="listaPersona"
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5" ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <Label Text="{Binding Id}" 
+                                   Grid.Column="0"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"/>
+
+                            <Label Text="{Binding Name}"
+                                   Grid.Column="1"
+                                   VerticalOptions="Center"/>
+
+                            <Button Text="Actualizar"
+                                    FontSize="14"
+                                    Grid.Column="2"
+                                    BackgroundColor="Aqua" 
+                                    CornerRadius="10"
+                                    Clicked="Button_Clicked"
+                                    CommandParameter="{Binding }"/>
+
+                            <Button Text="Eliminar"
+                                    FontSize="14"
+                                    Grid.Column="3"
+                                    BackgroundColor="Red"
+                                    CornerRadius="10"
+                                    Clicked="Button_Clicked_1"
+                                    CommandParameter="{Binding }"/>
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>
