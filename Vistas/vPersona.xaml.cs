@@ -15,7 +15,14 @@ public partial class vPersona : ContentPage
         App.PersonRepo.addNewPerson(txtPersona.Text, txtApellido.Text, txtEdad.Text);
         lblMensaje.Text = App.PersonRepo.mensaje;
 
+        await DisplayAlert("Mensaje", App.PersonRepo.mensaje, "OK");
+
+
         listaPersona.ItemsSource = App.PersonRepo.GetAllPeople();
+
+        txtPersona.Text = "";
+        txtApellido.Text = "";
+        txtEdad.Text = "";
     }
 
     private async void btnListar_Clicked(object sender, EventArgs e)
@@ -44,6 +51,9 @@ public partial class vPersona : ContentPage
                 // Método sincrónico
                 App.PersonRepo.UpdatePerson(persona.Id, nuevoNombre);
                 lblMensaje.Text = App.PersonRepo.mensaje;
+
+                await DisplayAlert("Mensaje", App.PersonRepo.mensaje, "OK");
+
                 listaPersona.ItemsSource = App.PersonRepo.GetAllPeople();
             }
         }
